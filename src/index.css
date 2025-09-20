@@ -250,6 +250,15 @@ body::-webkit-scrollbar {
         
         .mobile-card {
           @apply relative -ms-0 w-72 h-48;
+          
+          video {
+            @apply w-full h-full object-cover;
+            -webkit-playsinline: true;
+            -webkit-media-controls: none;
+            -webkit-media-controls-panel: none;
+            -webkit-media-controls-play-button: none;
+            -webkit-media-controls-start-playback-button: none;
+          }
         }
       }
     }

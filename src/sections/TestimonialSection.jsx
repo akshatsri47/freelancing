@@ -71,17 +71,49 @@ const TestimonialSection = () => {
           scrub: 1,
         },
       });
+
+      // Initialize videos for mobile
+      setTimeout(() => {
+        vdRef.current.forEach((video, index) => {
+          if (video) {
+            video.load();
+            // Try to play after a short delay
+            setTimeout(() => {
+              video.play().catch(error => {
+                console.log(`Video ${index} auto-play failed:`, error);
+              });
+            }, 500);
+          }
+        });
+      }, 1000);
     }
   }, [isMobile, isTablet]);
 
   const handlePlay = (index) => {
     const video = vdRef.current[index];
-    video.play();
+    if (video) {
+      video.play().catch(error => {
+        console.log('Video play failed:', error);
+        // Fallback: show poster image or handle error
+      });
+    }
   };
 
   const handlePause = (index) => {
     const video = vdRef.current[index];
-    video.pause();
+    if (video) {
+      video.pause();
+    }
+  };
+
+  const handleVideoLoad = (index) => {
+    const video = vdRef.current[index];
+    if (video && isMobile) {
+      // On mobile, try to play video immediately
+      video.play().catch(error => {
+        console.log('Auto-play failed on mobile:', error);
+      });
+    }
   };
 
   return (
@@ -106,7 +138,17 @@ const TestimonialSection = () => {
               playsInline
               muted
               loop
+              autoPlay
+              preload="metadata"
+              webkit-playsinline="true"
+              x5-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
               className="size-full object-cover"
+              poster={card.img}
+              onLoadedData={() => handleVideoLoad(index)}
+              onTouchStart={() => handlePlay(index)}
+              onTouchEnd={() => handlePause(index)}
             />
           </div>
         ))}
