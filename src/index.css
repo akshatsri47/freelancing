@@ -236,7 +236,7 @@ body::-webkit-scrollbar {
   }
 
   .testimonials-section {
-    @apply bg-milk relative w-full h-[120dvh];
+    @apply bg-milk relative w-full h-[100dvh];
 
     .pin-box {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
@@ -244,21 +244,52 @@ body::-webkit-scrollbar {
       .vd-card {
         @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk;
       }
+    }
 
-      &.mobile-layout {
-        @apply ps-0 flex-col gap-4 relative bottom-auto top-20;
+    /* Mobile Testimonials Layout */
+    .mobile-testimonials-wrapper {
+      @apply w-full h-full flex flex-col;
+    }
+
+    .mobile-testimonials-header {
+      @apply flex flex-col items-center pt-8 pb-4;
+      
+      h1 {
+        @apply uppercase text-4xl leading-tight tracking-tight font-bold;
+      }
+    }
+
+    .mobile-testimonials-slider {
+      @apply flex-1 w-full relative overflow-hidden;
+      min-height: 300px;
+    }
+
+    .mobile-testimonials-container {
+      @apply flex h-full;
+      width: calc(100% * var(--video-count, 1));
+    }
+
+    .mobile-testimonial-video {
+      @apply flex-shrink-0 w-full h-full relative bg-gray-200;
+      min-height: 300px;
+      
+      video {
+        @apply w-full h-full object-cover rounded-xl;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #f3f4f6;
+      }
+    }
+
+    .mobile-video-indicators {
+      @apply flex justify-center gap-2 pb-4;
+      
+      .indicator {
+        @apply w-2 h-2 rounded-full bg-gray-400 transition-all duration-300;
         
-        .mobile-card {
-          @apply relative -ms-0 w-72 h-48;
-          
-          video {
-            @apply w-full h-full object-cover;
-            -webkit-playsinline: true;
-            -webkit-media-controls: none;
-            -webkit-media-controls-panel: none;
-            -webkit-media-controls-play-button: none;
-            -webkit-media-controls-start-playback-button: none;
-          }
+        &.active {
+          @apply bg-black scale-125;
         }
       }
     }

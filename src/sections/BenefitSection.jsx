@@ -47,18 +47,40 @@ const BenefitSection = () => {
           ease: "circ.out",
         });
     } else {
-      // Simple mobile animations
-      gsap.from(".benefit-section .first-title, .benefit-section .second-title, .benefit-section .third-title, .benefit-section .fourth-title", {
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
+      // Simple mobile animations like MessageSection
+      const revealTl = gsap.timeline({
+        delay: 1,
         scrollTrigger: {
           trigger: ".benefit-section",
-          start: "top 80%",
-          end: "bottom 20%",
-          scrub: 1,
+          start: "top 60%",
         },
       });
+
+      revealTl
+        .to(".benefit-section .first-title", {
+          duration: 1,
+          opacity: 1,
+          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+          ease: "circ.inOut",
+        })
+        .to(".benefit-section .second-title", {
+          duration: 1,
+          opacity: 1,
+          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+          ease: "circ.inOut",
+        }, "-=0.5")
+        .to(".benefit-section .third-title", {
+          duration: 1,
+          opacity: 1,
+          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+          ease: "circ.inOut",
+        }, "-=0.5")
+        .to(".benefit-section .fourth-title", {
+          duration: 1,
+          opacity: 1,
+          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+          ease: "circ.inOut",
+        }, "-=0.5");
     }
   }, [isMobile, isTablet]);
 
