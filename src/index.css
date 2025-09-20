@@ -244,6 +244,14 @@ body::-webkit-scrollbar {
       .vd-card {
         @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk;
       }
+
+      &.mobile-layout {
+        @apply ps-0 flex-col gap-4 relative bottom-auto top-20;
+        
+        .mobile-card {
+          @apply relative -ms-0 w-72 h-48;
+        }
+      }
     }
 
     h1 {
