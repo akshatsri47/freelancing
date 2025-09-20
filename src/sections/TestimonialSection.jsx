@@ -6,9 +6,8 @@ import { useMediaQuery } from "react-responsive";
 
 const TestimonialSection = () => {
   const vdRef = useRef([]);
-  const carouselRef = useRef(null);
   const sliderRef = useRef(null);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
@@ -65,20 +64,30 @@ const TestimonialSection = () => {
         ease: "power1.inOut",
       });
     } else {
-      // Mobile discrete video slider
+      // Simple mobile animations
+      gsap.from(".vd-card", {
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: ".testimonials-section",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1,
+        },
+      });
+
       // Initialize videos for mobile
       setTimeout(() => {
         vdRef.current.forEach((video, index) => {
           if (video) {
             video.load();
-            // Only play the first video initially
-            if (index === 0) {
-              setTimeout(() => {
-                video.play().catch(error => {
-                  console.log(`Video ${index} auto-play failed:`, error);
-                });
-              }, 500);
-            }
+            // Try to play after a short delay
+            setTimeout(() => {
+              video.play().catch(error => {
+                console.log(`Video ${index} auto-play failed:`, error);
+              });
+            }, 500);
           }
         });
       }, 1000);
@@ -105,7 +114,6 @@ const TestimonialSection = () => {
   const handleVideoLoad = (index) => {
     const video = vdRef.current[index];
     if (video && isMobile) {
-      console.log(`Video ${index} loaded successfully`);
       // On mobile, try to play video immediately
       video.play().catch(error => {
         console.log('Auto-play failed on mobile:', error);
@@ -113,51 +121,31 @@ const TestimonialSection = () => {
     }
   };
 
-  // Mobile slider navigation functions
-  const goToVideo = (index) => {
+  // Mobile image slider functions
+  const goToImage = (index) => {
     if (index >= 0 && index < cards.length) {
-      console.log(`Switching to video ${index}`);
-      setCurrentVideoIndex(index);
-      
-      // Pause all videos
-      vdRef.current.forEach((video, i) => {
-        if (video) {
-          video.pause();
-          console.log(`Paused video ${i}`);
-        }
-      });
-      
-      // Play the current video
-      const currentVideo = vdRef.current[index];
-      if (currentVideo) {
-        console.log(`Playing video ${index}`);
-        currentVideo.play().catch(error => {
-          console.log('Video play failed:', error);
-        });
-      } else {
-        console.log(`Video ${index} not found`);
-      }
+      setCurrentImageIndex(index);
       
       // Animate slider position
       if (sliderRef.current) {
         gsap.to(sliderRef.current, {
           x: -index * 100 + "%",
-          duration: 0.5,
+          duration: 0.6,
           ease: "power2.out"
         });
       }
     }
   };
 
-  const nextVideo = () => {
-    if (currentVideoIndex < cards.length - 1) {
-      goToVideo(currentVideoIndex + 1);
+  const nextImage = () => {
+    if (currentImageIndex < cards.length - 1) {
+      goToImage(currentImageIndex + 1);
     }
   };
 
-  const prevVideo = () => {
-    if (currentVideoIndex > 0) {
-      goToVideo(currentVideoIndex - 1);
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      goToImage(currentImageIndex - 1);
     }
   };
 
@@ -181,65 +169,32 @@ const TestimonialSection = () => {
     
     if (Math.abs(deltaX) > threshold) {
       if (deltaX > 0) {
-        // Swipe right - go to previous video
-        prevVideo();
+        // Swipe right - go to previous image
+        prevImage();
       } else {
-        // Swipe left - go to next video
-        nextVideo();
+        // Swipe left - go to next image
+        nextImage();
       }
     }
     
     setIsDragging(false);
   };
 
-  // Set CSS variable for video count and initialize first video
+  // Initialize mobile image slider
   useEffect(() => {
     if (isMobile && sliderRef.current) {
-      sliderRef.current.style.setProperty('--video-count', cards.length);
-      // Initialize the first video
+      sliderRef.current.style.setProperty('--image-count', cards.length);
+      // Initialize the first image
       setTimeout(() => {
-        goToVideo(0);
-      }, 1000);
+        goToImage(0);
+      }, 500);
     }
   }, [isMobile, cards.length]);
-
-  // Scroll-based navigation
-  useEffect(() => {
-    if (!isMobile) return;
-
-    let scrollTimeout;
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        // Simple scroll detection - you can enhance this
-        const scrollY = window.scrollY;
-        const sectionTop = document.querySelector('.testimonials-section')?.offsetTop || 0;
-        const sectionHeight = document.querySelector('.testimonials-section')?.offsetHeight || 0;
-        
-        if (scrollY > sectionTop && scrollY < sectionTop + sectionHeight) {
-          // Calculate which video should be active based on scroll position within section
-          const scrollProgress = (scrollY - sectionTop) / sectionHeight;
-          const targetIndex = Math.min(Math.floor(scrollProgress * cards.length), cards.length - 1);
-          
-          if (targetIndex !== currentVideoIndex) {
-            goToVideo(targetIndex);
-          }
-        }
-      }, 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, [isMobile, currentVideoIndex]);
-
 
   return (
     <section className="testimonials-section">
       {isMobile ? (
-        // Mobile discrete video slider
+        // Mobile image slider
         <div className="mobile-testimonials-wrapper">
           <div className="mobile-testimonials-header">
             <h1 className="text-black">What's</h1>
@@ -256,76 +211,71 @@ const TestimonialSection = () => {
               onTouchEnd={handleTouchEnd}
             >
               {cards.map((card, index) => (
-                <div key={index} className="mobile-testimonial-video">
-                  <video
-                    ref={(el) => (vdRef.current[index] = el)}
-                    src={card.src}
-                    playsInline
-                    muted
-                    loop
-                    preload="metadata"
-                    webkit-playsinline="true"
-                    x5-playsinline="true"
-                    x5-video-player-type="h5"
-                    x5-video-player-fullscreen="true"
-                    poster={card.img}
-                    onLoadedData={() => handleVideoLoad(index)}
+                <div key={index} className="mobile-testimonial-image">
+                  <img
+                    src={card.img}
+                    alt={`Testimonial ${index + 1}`}
+                    className="w-full h-full object-cover rounded-xl"
+                    loading="lazy"
                   />
+                  {/* <div className="image-overlay">
+                    <div className="image-name">{card.name}</div>
+                  </div> */}
                 </div>
               ))}
             </div>
           </div>
           
-          {/* Video indicators */}
-          <div className="mobile-video-indicators">
+          {/* Image indicators */}
+          <div className="mobile-image-indicators">
             {cards.map((_, index) => (
               <button
                 key={index}
-                className={`indicator ${index === currentVideoIndex ? 'active' : ''}`}
-                onClick={() => goToVideo(index)}
+                className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                onClick={() => goToImage(index)}
               />
             ))}
           </div>
         </div>
       ) : (
-        // Desktop layout
-        <div className="absolute size-full flex flex-col items-center pt-[5vw]">
-          <h1 className="text-black first-title">What's</h1>
-          <h1 className="text-light-brown sec-title">Everyone</h1>
-          <h1 className="text-black third-title">Talking</h1>
-        </div>
-      )}
+        // Desktop video layout
+        <>
+          <div className="absolute size-full flex flex-col items-center pt-[5vw]">
+            <h1 className="text-black first-title">What's</h1>
+            <h1 className="text-light-brown sec-title">Everyone</h1>
+            <h1 className="text-black third-title">Talking</h1>
+          </div>
 
-      {!isMobile && (
-        <div className="pin-box">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className={`vd-card ${card.translation} ${card.rotation}`}
-              onMouseEnter={() => handlePlay(index)}
-              onMouseLeave={() => handlePause(index)}
-            >
-              <video
-                ref={(el) => (vdRef.current[index] = el)}
-                src={card.src}
-                playsInline
-                muted
-                loop
-                autoPlay
-                preload="metadata"
-                webkit-playsinline="true"
-                x5-playsinline="true"
-                x5-video-player-type="h5"
-                x5-video-player-fullscreen="true"
-                className="size-full object-cover"
-                poster={card.img}
-                onLoadedData={() => handleVideoLoad(index)}
-                onTouchStart={() => handlePlay(index)}
-                onTouchEnd={() => handlePause(index)}
-              />
-            </div>
-          ))}
-        </div>
+          <div className="pin-box">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className={`vd-card ${card.translation} ${card.rotation}`}
+                onMouseEnter={() => handlePlay(index)}
+                onMouseLeave={() => handlePause(index)}
+              >
+                <video
+                  ref={(el) => (vdRef.current[index] = el)}
+                  src={card.src}
+                  playsInline
+                  muted
+                  loop
+                  autoPlay
+                  preload="metadata"
+                  webkit-playsinline="true"
+                  x5-playsinline="true"
+                  x5-video-player-type="h5"
+                  x5-video-player-fullscreen="true"
+                  className="size-full object-cover"
+                  poster={card.img}
+                  onLoadedData={() => handleVideoLoad(index)}
+                  onTouchStart={() => handlePlay(index)}
+                  onTouchEnd={() => handlePause(index)}
+                />
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </section>
   );

@@ -9,79 +9,41 @@ const BenefitSection = () => {
   const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
   useGSAP(() => {
-    // Only apply complex animations on desktop
-    if (!isMobile && !isTablet) {
-      const revealTl = gsap.timeline({
-        delay: 1,
-        scrollTrigger: {
-          trigger: ".benefit-section",
-          start: "top 60%",
-          end: "top top",
-          scrub: 1.5,
-        },
-      });
+    const revealTl = gsap.timeline({
+      delay: 1,
+      scrollTrigger: {
+        trigger: ".benefit-section",
+        start: "top 60%",
+        end: "top top",
+        scrub: 1.5,
+      },
+    });
 
-      revealTl
-        .to(".benefit-section .first-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.out",
-        })
-        .to(".benefit-section .second-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.out",
-        })
-        .to(".benefit-section .third-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.out",
-        })
-        .to(".benefit-section .fourth-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.out",
-        });
-    } else {
-      // Simple mobile animations like MessageSection
-      const revealTl = gsap.timeline({
-        delay: 1,
-        scrollTrigger: {
-          trigger: ".benefit-section",
-          start: "top 60%",
-        },
+    revealTl
+      .to(".benefit-section .first-title", {
+        duration: 1,
+        opacity: 1,
+        clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+        ease: "circ.out",
+      })
+      .to(".benefit-section .second-title", {
+        duration: 1,
+        opacity: 1,
+        clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+        ease: "circ.out",
+      })
+      .to(".benefit-section .third-title", {
+        duration: 1,
+        opacity: 1,
+        clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+        ease: "circ.out",
+      })
+      .to(".benefit-section .fourth-title", {
+        duration: 1,
+        opacity: 1,
+        clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
+        ease: "circ.out",
       });
-
-      revealTl
-        .to(".benefit-section .first-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.inOut",
-        })
-        .to(".benefit-section .second-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.inOut",
-        }, "-=0.5")
-        .to(".benefit-section .third-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.inOut",
-        }, "-=0.5")
-        .to(".benefit-section .fourth-title", {
-          duration: 1,
-          opacity: 1,
-          clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
-          ease: "circ.inOut",
-        }, "-=0.5");
-    }
   }, [isMobile, isTablet]);
 
   return (
@@ -95,28 +57,28 @@ const BenefitSection = () => {
 
           <div className="mt-20 col-center">
             <ClipPathTitle
-              title={"Shelf stable"}
+              title={"Passion for Wheels"}
               color={"#faeade"}
               bg={"#c88e64"}
               className={"first-title"}
               borderColor={"#222123"}
             />
             <ClipPathTitle
-              title={"Protein + Caffeine"}
+              title={"Car Meets"}
               color={"#222123"}
               bg={"#faeade"}
               className={"second-title"}
               borderColor={"#222123"}
             />
             <ClipPathTitle
-              title={"Infinitely recyclable"}
+              title={"Engine Roars"}
               color={"#faeade"}
               bg={"#7F3B2D"}
               className={"third-title"}
               borderColor={"#222123"}
             />
             <ClipPathTitle
-              title={"Lactose free"}
+              title={"Supercars & Classics"}
               color={"#2E2D2F"}
               bg={"#FED775"}
               className={"fourth-title"}

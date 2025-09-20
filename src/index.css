@@ -202,6 +202,13 @@ body::-webkit-scrollbar {
       @apply text-milk font-paragraph text-center text-lg;
     }
 
+    /* Remove gap on mobile when video pin is hidden */
+    @media (max-width: 1024px) {
+      .overlay-box {
+        display: none;
+      }
+    }
+
     .first-title {
       @apply rotate-[3deg] relative z-10;
     }
@@ -236,7 +243,13 @@ body::-webkit-scrollbar {
   }
 
   .testimonials-section {
-    @apply bg-milk relative w-full h-[100dvh];
+    @apply bg-milk relative w-full;
+    height: 100vh; /* Default for mobile */
+    
+    /* Desktop height */
+    @media (min-width: 1024px) {
+      height: 120dvh;
+    }
 
     .pin-box {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
@@ -262,34 +275,68 @@ body::-webkit-scrollbar {
     .mobile-testimonials-slider {
       @apply flex-1 w-full relative overflow-hidden;
       min-height: 300px;
+      height: 50vh;
     }
 
     .mobile-testimonials-container {
       @apply flex h-full;
-      width: calc(100% * var(--video-count, 1));
+      width: calc(100% * var(--image-count, 1));
+      min-height: 300px;
     }
 
-    .mobile-testimonial-video {
+    .mobile-testimonial-image {
       @apply flex-shrink-0 w-full h-full relative bg-gray-200;
       min-height: 300px;
+      height: 50vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       
-      video {
+      img {
         @apply w-full h-full object-cover rounded-xl;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+        object-position: center;
+        min-width: 100%;
+        min-height: 100%;
+        width: 100%;
+        height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #f3f4f6;
+        /* Force image to fill container completely */
+        transform: scale(1.01);
+        /* Handle different aspect ratios */
+        object-fit: cover !important;
+        object-position: center center;
+      }
+      
+      .image-overlay {
+        @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-xl;
+        
+        .image-name {
+          @apply text-white text-lg font-semibold;
+        }
+      }
+      
+      &:hover img {
+        transform: scale(1.05);
       }
     }
 
-    .mobile-video-indicators {
+    .mobile-image-indicators {
       @apply flex justify-center gap-2 pb-4;
       
       .indicator {
-        @apply w-2 h-2 rounded-full bg-gray-400 transition-all duration-300;
+        @apply w-2 h-2 rounded-full bg-gray-400 transition-all duration-300 cursor-pointer;
         
         &.active {
           @apply bg-black scale-125;
+        }
+        
+        &:hover {
+          @apply bg-gray-600;
         }
       }
     }
