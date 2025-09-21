@@ -346,6 +346,35 @@ body::-webkit-scrollbar {
     }
   }
 
+  .logo-slider-section {
+    @apply relative overflow-hidden;
+    
+    .logo-item {
+      @apply transition-all duration-300 ease-out;
+      
+      img {
+        @apply transition-all duration-300 ease-out;
+        filter: grayscale(100%) brightness(0.7) contrast(1.1);
+      }
+      
+      &:hover img {
+        filter: grayscale(0%) brightness(1) contrast(1);
+        transform: scale(1.05);
+      }
+    }
+    
+    /* Subtle gradient overlays for depth */
+    &::before {
+      content: '';
+      @apply absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-milk to-transparent z-10 pointer-events-none;
+    }
+    
+    &::after {
+      content: '';
+      @apply absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-milk to-transparent z-10 pointer-events-none;
+    }
+  }
+
   .footer-section {
     @apply 2xl:min-h-dvh overflow-hidden relative bg-[#222123];
 

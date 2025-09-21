@@ -42,6 +42,9 @@ const FooterSection = () => {
             <img src="./images/whatsapp.svg" alt="" />
           </div>
           <div className="social-btn">
+            <img src="./images/instagram.svg" alt="" />
+          </div>
+          <div className="social-btn">
             <img src="./images/threads.svg" alt="" />
           </div>
         </div>
