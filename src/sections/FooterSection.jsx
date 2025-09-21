@@ -1,4 +1,5 @@
 import { useMediaQuery } from "react-responsive";
+import { Link } from "react-router-dom";
 
 const FooterSection = () => {
   const isMobile = useMediaQuery({
@@ -87,10 +88,20 @@ const FooterSection = () => {
 
         <div className="copyright-box">
         
-          <p>Copyright © 2025 Spylt - All Rights Reserved</p>
+          <p>Copyright © 2025 Cars and Coffee Dehradun - All Rights Reserved</p>
           <div className="flex items-center gap-7">
-            <p>Privacy Policy</p>
-            <p>Terms of Sеrvice</p>
+            <Link to="/privacy-policy" className="hover:text-milk transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/terms-and-conditions" className="hover:text-milk transition-colors">
+              Terms of Service
+            </Link>
+            <Link to="/accessibility" className="hover:text-milk transition-colors">
+              Accessibility
+            </Link>
+            <Link to="/refund-policy" className="hover:text-milk transition-colors">
+              Refund Policy
+            </Link>
           </div>
         </div>
       </div>
