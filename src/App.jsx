@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loader from "./components/Loader";
 import Home from "./components/Home";
+import Teams from "./pages/Teams";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Accessibility from "./pages/Accessibility";
@@ -13,6 +14,7 @@ const App = () => {
         <Loader />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/teams" element={<Teams />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/accessibility" element={<Accessibility />} />

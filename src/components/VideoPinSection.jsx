@@ -39,7 +39,7 @@ const VideoPinSection = () => {
         className="size-full video-box"
       >
         <video 
-          src="/videos/IMG_4779.mp4" 
+          src="/videos/footer.mp4" 
           playsInline 
           muted 
           loop 

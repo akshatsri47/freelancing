@@ -203,93 +203,50 @@ const TestimonialSection = () => {
     }
   }, [isMobile, cards.length]);
 
+  // Don't render testimonials section on mobile
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <section className="testimonials-section">
-      {isMobile ? (
-        // Mobile image slider
-        <div className="mobile-testimonials-wrapper">
-          <div className="mobile-testimonials-header">
-            <h1 className="text-black">What's</h1>
-            <h1 className="text-light-brown">Everyone</h1>
-            <h1 className="text-black">Talking</h1>
-          </div>
-          
-          <div className="mobile-testimonials-slider">
-            <div 
-              ref={sliderRef}
-              className="mobile-testimonials-container"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              {cards.map((card, index) => (
-                <div key={index} className="mobile-testimonial-image">
-                  <img
-                    src={card.img}
-                    alt={`Testimonial ${index + 1}`}
-                    className="w-full h-full object-cover rounded-xl"
-                    loading="lazy"
-                  />
-                  {/* <div className="image-overlay">
-                    <div className="image-name">{card.name}</div>
-                  </div> */}
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Image indicators */}
-          <div className="mobile-image-indicators">
-            {cards.map((_, index) => (
-              <button
-                key={index}
-                className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
-                onClick={() => goToImage(index)}
-              />
-            ))}
-          </div>
-        </div>
-      ) : (
-        // Desktop video layout
-        <>
-          <div className="absolute size-full flex flex-col items-center pt-[5vw]">
-            <h1 className="text-black first-title">What's</h1>
-            <h1 className="text-light-brown sec-title">Everyone</h1>
-            <h1 className="text-black third-title">Talking</h1>
-          </div>
+      {/* Desktop video layout */}
+      <div className="absolute size-full flex flex-col items-center pt-[5vw]">
+        <h1 className="text-black first-title">What's</h1>
+        <h1 className="text-light-brown sec-title">Everyone</h1>
+        <h1 className="text-black third-title">Talking</h1>
+      </div>
 
-          <div className="pin-box">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                className={`vd-card ${card.translation} ${card.rotation}`}
-                onMouseEnter={() => handlePlay(index)}
-                onMouseLeave={() => handlePause(index)}
-              >
-                <video
-                  ref={(el) => (vdRef.current[index] = el)}
-                  src={card.src}
-                  playsInline
-                  muted
-                  loop
-                  autoPlay={!isMobile}
-                  preload={isMobile ? "metadata" : "auto"}
-                  webkit-playsinline="true"
-                  x5-playsinline="true"
-                  x5-video-player-type="h5"
-                  x5-video-player-fullscreen="true"
-                  className="size-full object-cover"
-                  poster={card.img}
-                  style={{ willChange: "transform" }}
-                  onLoadedData={() => handleVideoLoad(index)}
-                  onTouchStart={() => handlePlay(index)}
-                  onTouchEnd={() => handlePause(index)}
-                />
-              </div>
-            ))}
+      <div className="pin-box">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className={`vd-card ${card.translation} ${card.rotation}`}
+            onMouseEnter={() => handlePlay(index)}
+            onMouseLeave={() => handlePause(index)}
+          >
+            <video
+              ref={(el) => (vdRef.current[index] = el)}
+              src={card.src}
+              playsInline
+              muted
+              loop
+              autoPlay={!isMobile}
+              preload={isMobile ? "metadata" : "auto"}
+              webkit-playsinline="true"
+              x5-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
+              className="size-full object-cover"
+              poster={card.img}
+              style={{ willChange: "transform" }}
+              onLoadedData={() => handleVideoLoad(index)}
+              onTouchStart={() => handlePlay(index)}
+              onTouchEnd={() => handlePause(index)}
+            />
           </div>
-        </>
-      )}
+        ))}
+      </div>
     </section>
   );
 };

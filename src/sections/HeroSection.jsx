@@ -11,6 +11,7 @@ const HeroSection = () => {
   const logoRef = useRef(null);
   const subtitleRef = useRef(null);
   const heroContainerRef = useRef(null);
+  const videoRef = useRef(null);
 
   const openTallyForm = () => {
     window.open('https://tally.so/r/npaOWJ', '_blank');
@@ -103,6 +104,31 @@ const HeroSection = () => {
 
   }, [isMobile, isTablet]);
 
+  // Ensure video plays on mobile
+  useEffect(() => {
+    const playVideo = async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (error) {
+          console.log('Video autoplay failed:', error);
+          // Fallback: try to play on user interaction
+          const playOnInteraction = () => {
+            videoRef.current?.play();
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+          };
+          document.addEventListener('touchstart', playOnInteraction);
+          document.addEventListener('click', playOnInteraction);
+        }
+      }
+    };
+
+    // Small delay to ensure video is loaded
+    const timer = setTimeout(playVideo, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Cleanup ScrollTrigger on unmount
   useEffect(() => {
     return () => {
@@ -115,8 +141,9 @@ const HeroSection = () => {
       <div ref={heroContainerRef} className="hero-container relative">
         {/* Optimized video loading with mobile considerations */}
         <video
+          ref={videoRef}
           src="/videos/car_drifting.mp4"
-          autoPlay={!isMobile}
+          autoPlay
           muted
           playsInline
           loop
@@ -151,7 +178,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <h2 ref={subtitleRef} className="opacity-0">
+          <h2 ref={subtitleRef} className="opacity-0 text-white">
             Live life in the fast lane: Shatter boredom, embrace nostalgia, and
             fuel your passion with every rev.
           </h2>

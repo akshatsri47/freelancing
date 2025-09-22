@@ -393,18 +393,31 @@ body::-webkit-scrollbar {
     @apply 2xl:min-h-dvh overflow-hidden relative bg-[#222123];
 
     .social-btn {
-      @apply border border-[#faeade33] md:size-[5vw] size-14 md:p-0 p-3 flex justify-center items-center rounded-full hover:bg-[#ffffff1a] transition-colors cursor-pointer;
+      @apply border border-[#faeade33] w-12 h-12 md:w-16 md:h-16 flex justify-center items-center rounded-full hover:bg-[#ffffff1a] transition-all duration-300 cursor-pointer hover:scale-110 hover:border-milk/50;
+      
+      img {
+        @apply w-6 h-6 md:w-8 md:h-8 filter brightness-0 invert;
+        transition: all 0.3s ease;
+      }
+      
+      &:hover img {
+        @apply scale-110;
+      }
     }
 
     input {
-      @apply 2xl:text-4xl text-3xl placeholder:font-bold placeholder:tracking-tighter;
+      @apply text-lg md:text-2xl lg:text-3xl placeholder:font-bold placeholder:tracking-tight;
     }
 
     .copyright-box {
-      @apply 2xl:absolute w-full md:px-10 px-5 py-7 bottom-0 text-milk opacity-50 md:text-lg font-paragraph flex gap-7 md:flex-row flex-col-reverse md:justify-between justify-center items-center;
+      @apply absolute w-full md:px-10 px-6 py-8 bottom-0 text-milk/60 md:text-lg text-sm font-paragraph flex gap-8 md:flex-row flex-col md:justify-between justify-center items-center border-t border-milk/10;
 
       p {
-        @apply text-center;
+        @apply text-center font-medium;
+      }
+      
+      a {
+        @apply hover:text-milk transition-colors duration-200 font-medium;
       }
     }
   }

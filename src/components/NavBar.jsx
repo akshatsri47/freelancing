@@ -131,18 +131,18 @@ const NavBar = ({ showLogo = false }) => {
 
       {/* Center navigation - All nav items */}
       <div className="hidden md:flex flex-1 justify-center items-start space-x-8 -mt-2">
-        <button
-          onClick={() => scrollToSection("home")}
+        <Link
+          to="/"
           className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
         >
           Home
-        </button>
-        <button
-          onClick={() => scrollToSection("events")}
+        </Link>
+        <Link
+          to="/teams"
           className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
         >
-          Events
-        </button>
+          Teams
+        </Link>
         <Link
           to="/privacy-policy"
           className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
@@ -218,18 +218,20 @@ const NavBar = ({ showLogo = false }) => {
         }}
       >
           <div className="px-4 py-6 space-y-4">
-            <button
-              onClick={() => scrollToSection("home")}
+            <Link
+              to="/"
+              onClick={() => setIsMobileMenuOpen(false)}
               className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
             >
               Home
-            </button>
-            <button
-              onClick={() => scrollToSection("events")}
+            </Link>
+            <Link
+              to="/teams"
+              onClick={() => setIsMobileMenuOpen(false)}
               className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
             >
-              Events
-            </button>
+              Teams
+            </Link>
             <Link
               to="/privacy-policy"
               onClick={() => setIsMobileMenuOpen(false)}
