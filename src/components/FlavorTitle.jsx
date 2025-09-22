@@ -15,6 +15,7 @@ const FlavorTitle = () => {
       yPercent: 200,
       stagger: 0.02,
       ease: "power1.inOut",
+      force3D: true, // Hardware acceleration
       scrollTrigger: {
         trigger: ".flavor-section",
         start: "top 30%",
@@ -34,6 +35,7 @@ const FlavorTitle = () => {
       yPercent: 200,
       stagger: 0.02,
       ease: "power1.inOut",
+      force3D: true, // Hardware acceleration
       scrollTrigger: {
         trigger: ".flavor-section",
         start: "top 1%",

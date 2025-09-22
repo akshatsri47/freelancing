@@ -38,9 +38,7 @@ const NavBar = ({ showLogo = false }) => {
         const element = document.getElementById(sectionId);
         if (element && window.scrollSmoother) {
           window.scrollSmoother.scrollTo(element, true, "top top");
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 100);
+          // Removed unnecessary ScrollTrigger.refresh() call
         }
       }, 500); // Give time for ScrollSmoother to initialize
 
@@ -68,10 +66,7 @@ const NavBar = ({ showLogo = false }) => {
         element.scrollIntoView({ behavior: "smooth" });
       }
       
-      // Refresh ScrollTrigger after a short delay to ensure animations trigger
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
+      // Removed unnecessary ScrollTrigger.refresh() call to improve performance
     }
     // Close mobile menu after clicking
     setIsMobileMenuOpen(false);

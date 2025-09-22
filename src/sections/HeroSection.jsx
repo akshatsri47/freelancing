@@ -50,12 +50,13 @@ const HeroSection = () => {
         "-=0.3"
       );
 
-    // Hero logo animation to top-left position
+    // Hero logo animation to top-left position - optimized for performance
     ScrollTrigger.create({
       trigger: heroContainerRef.current,
       start: "top top",
       end: "bottom top",
-      scrub: 1,
+      scrub: 1.2, // Optimized scrub value
+      anticipatePin: 1, // Better pinning performance
       onUpdate: (self) => {
         const progress = self.progress;
         
@@ -65,35 +66,27 @@ const HeroSection = () => {
           const targetY = isMobile ? -40 : -45;
           const targetScale = isMobile ? 0.25 : 0.18;
           
-          // Animate logo to top-left
-          gsap.to(logoRef.current, {
-            x: progress * targetX + "%",
-            y: progress * targetY + "%",
-            scale: 1 - (progress * (1 - targetScale)),
-            duration: 0.1,
-            ease: "none"
-          });
+          // Use transform3d for better performance
+          logoRef.current.style.transform = `translate3d(${progress * targetX}%, ${progress * targetY}%, 0) scale(${1 - (progress * (1 - targetScale))})`;
         }
         
-        // Fade out other hero elements as user scrolls
-        gsap.to(".hero-text-scroll, .hero-subtitle h1", {
-          opacity: 1 - (progress * 0.8),
-          duration: 0.1,
-          ease: "none"
-        });
+        // Batch DOM updates for better performance
+        requestAnimationFrame(() => {
+          const textElements = document.querySelectorAll(".hero-text-scroll, .hero-subtitle h1");
+          textElements.forEach(el => {
+            el.style.opacity = 1 - (progress * 0.8);
+          });
 
-        gsap.to(subtitleRef.current, {
-          opacity: 1 - (progress * 0.9),
-          y: progress * -30,
-          duration: 0.1,
-          ease: "none"
-        });
+          if (subtitleRef.current) {
+            subtitleRef.current.style.opacity = 1 - (progress * 0.9);
+            subtitleRef.current.style.transform = `translate3d(0, ${progress * -30}px, 0)`;
+          }
 
-        gsap.to(".hero-button", {
-          opacity: 1 - (progress * 0.9),
-          y: progress * 30,
-          duration: 0.1,
-          ease: "none"
+          const buttonElements = document.querySelectorAll(".hero-button");
+          buttonElements.forEach(el => {
+            el.style.opacity = 1 - (progress * 0.9);
+            el.style.transform = `translate3d(0, ${progress * 30}px, 0)`;
+          });
         });
       },
       onComplete: () => {
@@ -120,14 +113,16 @@ const HeroSection = () => {
   return (
     <section id="home" className="bg-main-bg">
       <div ref={heroContainerRef} className="hero-container relative">
-        {/* Video will now play on all devices including mobile */}
+        {/* Optimized video loading with mobile considerations */}
         <video
           src="/videos/car_drifting.mp4"
-          autoPlay
+          autoPlay={!isMobile}
           muted
           playsInline
           loop
+          preload={isMobile ? "metadata" : "auto"}
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ willChange: "transform" }}
         />
 
         <div className="hero-content opacity-0">
@@ -137,8 +132,10 @@ const HeroSection = () => {
               src="/photos/clip-logo.svg"
               alt="Cars and Coffee"
               className="w-[300px] md:w-[400px] h-[400px] mx-auto opacity-0 relative z-10"
+              loading="eager"
               style={{
-                transformOrigin: "center center" // Ensures scaling happens from center
+                transformOrigin: "center center", // Ensures scaling happens from center
+                willChange: "transform"
               }}
             />
           </div>

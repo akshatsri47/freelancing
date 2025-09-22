@@ -20,14 +20,16 @@ const FlavorSlider = () => {
           trigger: ".flavor-section",
           start: "2% top",
           end: `+=${scrollAmount + 1500}px`,
-          scrub: true,
+          scrub: 1.2, // Reduced from true for better performance
           pin: true,
+          anticipatePin: 1, // Better pinning performance
         },
       });
 
       tl.to(".flavor-section", {
         x: `-${scrollAmount + 1500}px`,
         ease: "power1.inOut",
+        force3D: true, // Hardware acceleration
       });
     }
 
@@ -43,7 +45,7 @@ const FlavorSlider = () => {
             trigger: img,
             start: "top 80%",
             end: "bottom 60%",
-            scrub: true,
+            scrub: 1.2, // Reduced from true for better performance
           },
           ease: "power2.out",
         }
@@ -63,6 +65,8 @@ const FlavorSlider = () => {
               src={flavor.img}
               alt={flavor.name}
               className="flavor-image w-full h-full object-cover rounded-xl shadow-lg"
+              loading="lazy"
+              style={{ willChange: "transform" }}
             />
 
             {/* <h1 className="absolute bottom-4 left-4 text-2xl font-bold text-white drop-shadow-lg">

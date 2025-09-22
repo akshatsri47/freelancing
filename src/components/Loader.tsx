@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const Loader = () => {
@@ -30,7 +30,7 @@ const Loader = () => {
       ref={overlayRef}
       className="fixed inset-0 z-[1000] flex items-center justify-center bg-black"
     >
-      <h1 ref={textRef} className="text-white text-4xl md:text-6xl font-bold">
+      <h1 ref={textRef} className="text-red-500 text-4xl md:text-6xl font-bold">
         #One Last Violation
       </h1>
     </div>

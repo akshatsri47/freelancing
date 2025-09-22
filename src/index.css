@@ -31,7 +31,7 @@ body {
   color: #523122;
   font-family: "Antonio", sans-serif;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  /* Removed scroll-behavior: smooth to prevent conflict with GSAP ScrollSmoother */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
 }
@@ -256,6 +256,10 @@ body::-webkit-scrollbar {
 
       .vd-card {
         @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk;
+        /* Performance optimizations */
+        will-change: transform, opacity;
+        transform: translateZ(0);
+        backface-visibility: hidden;
       }
     }
 
@@ -343,6 +347,10 @@ body::-webkit-scrollbar {
 
     h1 {
       @apply uppercase text-[20.5vw] leading-[105%] tracking-[-.4vw] ml-[2vw] font-bold;
+      /* Performance optimizations for testimonial titles */
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
   }
 
@@ -351,15 +359,21 @@ body::-webkit-scrollbar {
     
     .logo-item {
       @apply transition-all duration-300 ease-out;
+      /* Performance optimizations */
+      will-change: transform, opacity;
+      transform: translateZ(0);
+      backface-visibility: hidden;
       
       img {
         @apply transition-all duration-300 ease-out;
         filter: grayscale(100%) brightness(0.7) contrast(1.1);
+        will-change: transform, filter;
+        transform: translateZ(0);
       }
       
       &:hover img {
         filter: grayscale(0%) brightness(1) contrast(1);
-        transform: scale(1.05);
+        transform: scale(1.05) translateZ(0);
       }
     }
     
@@ -394,11 +408,6 @@ body::-webkit-scrollbar {
       }
     }
   }
-
-  /* Mobile navigation styles */
-  .mobile-menu {
-    @apply fixed top-0 left-0 right-0 z-50;
-  }
 }
 
 .nutrition-section {
@@ -415,5 +424,71 @@ body::-webkit-scrollbar {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* ScrollSmoother Performance Optimizations */
+#smooth-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#smooth-content {
+  will-change: transform;
+  transform: translateZ(0); /* Force hardware acceleration */
+  backface-visibility: hidden; /* Prevent flickering */
+  /* Prevent layout thrashing */
+  contain: layout style paint;
+}
+
+/* Additional performance optimizations for animated elements */
+.hero-text-scroll,
+.msg-text-scroll,
+.flavor-text-scroll,
+.nutrition-text-scroll {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Video performance optimizations */
+video {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .hero-text-scroll,
+  .msg-text-scroll,
+  .flavor-text-scroll,
+  .nutrition-text-scroll {
+    will-change: auto; /* Reset will-change on mobile to save resources */
+    transform: none; /* Reset transform on mobile */
+  }
+  
+  /* Optimize video playback on mobile */
+  video {
+    will-change: auto;
+    transform: none; /* Reset transform on mobile */
+  }
+  
+  /* Reduce heavy effects on mobile */
+  .vd-card,
+  .logo-item {
+    will-change: auto;
+    transform: none; /* Reset transform on mobile */
+  }
+  
+  /* Optimize ScrollSmoother on mobile */
+  #smooth-content {
+    will-change: auto;
+    transform: none;
   }
 }

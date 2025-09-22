@@ -4,6 +4,7 @@ import { SplitText } from "gsap/all";
 
 const MessageSection = () => {
   useGSAP(() => {
+    // Optimized SplitText creation with performance considerations
     const firstMsgSplit = SplitText.create(".first-message", {
       type: "words",
     });
@@ -19,22 +20,24 @@ const MessageSection = () => {
       color: "#faeade",
       ease: "power1.in",
       stagger: 1,
+      force3D: true, // Hardware acceleration
       scrollTrigger: {
         trigger: ".message-content",
         start: "top center",
         end: "30% center",
-        scrub: true,
+        scrub: 1.2, // Reduced from true for better performance
       },
     });
     gsap.to(secMsgSplit.words, {
       color: "#faeade",
       ease: "power1.in",
       stagger: 1,
+      force3D: true, // Hardware acceleration
       scrollTrigger: {
         trigger: ".second-message",
         start: "top center",
         end: "bottom center",
-        scrub: true,
+        scrub: 1.2, // Reduced from true for better performance
       },
     });
 
@@ -63,6 +66,7 @@ const MessageSection = () => {
       ease: "power1.inOut",
       duration: 1,
       stagger: 0.01,
+      force3D: true, // Hardware acceleration
     });
   });
 
@@ -93,7 +97,7 @@ const MessageSection = () => {
           <div className="flex-center md:mt-20 mt-10">
             <div className="max-w-md px-10 flex-center overflow-hidden">
               <p>
-               We&re more than just a community — we&re a family of car enthusiasts who come together to share our passion for wheels, engines, and good conversations over coffee.
+               We are more than just a community  we are a family of car enthusiasts who come together to share our passion for wheels, engines, and good conversations over coffee.
 
 From supercars to classics, JDMs to daily drivers — if it runs on four wheels and has a story, it belongs here.
 

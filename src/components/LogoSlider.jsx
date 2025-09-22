@@ -71,19 +71,50 @@ const LogoSlider = () => {
         ease: "power2.out"
       }, "-=0.4");
 
-    // Create infinite scroll animation
-    const scrollTl = gsap.timeline({ repeat: -1, ease: "none" });
+    // Create optimized infinite scroll animation
+    const scrollTl = gsap.timeline({ 
+      repeat: -1, 
+      ease: "none",
+      paused: true // Start paused for better performance
+    });
     
     scrollTl.to(slider, {
       x: -halfWidth,
-      duration: 25,
-      ease: "none"
+      duration: 30, // Increased duration for smoother movement
+      ease: "none",
+      force3D: true, // Hardware acceleration
     });
 
-    // Add hover pause effect
-    const pauseAnimation = () => scrollTl.pause();
-    const resumeAnimation = () => scrollTl.resume();
+    // Start animation after section is visible
+    const startAnimation = () => {
+      if (scrollTl.paused()) {
+        scrollTl.resume();
+      }
+    };
 
+    // Pause/resume based on visibility
+    const pauseAnimation = () => {
+      scrollTl.pause();
+    };
+    
+    const resumeAnimation = () => {
+      scrollTl.resume();
+    };
+
+    // Add visibility-based animation control
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAnimation();
+        } else {
+          pauseAnimation();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+
+    // Add hover pause effect
     slider.addEventListener("mouseenter", pauseAnimation);
     slider.addEventListener("mouseleave", resumeAnimation);
 
@@ -91,6 +122,7 @@ const LogoSlider = () => {
     return () => {
       slider.removeEventListener("mouseenter", pauseAnimation);
       slider.removeEventListener("mouseleave", resumeAnimation);
+      observer.disconnect();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [isMobile]);
@@ -132,8 +164,10 @@ const LogoSlider = () => {
                   src={logo.src}
                   alt={logo.alt}
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+                  loading="lazy"
                   style={{
                     filter: "grayscale(100%) brightness(0.7)",
+                    willChange: "transform, filter"
                   }}
                 />
               </div>

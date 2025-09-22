@@ -15,7 +15,8 @@ const BenefitSection = () => {
         trigger: ".benefit-section",
         start: "top 60%",
         end: "top top",
-        scrub: 1.5,
+        scrub: 1.2, // Reduced from 1.5 for better performance
+        anticipatePin: 1, // Better pinning performance
       },
     });
 
@@ -25,24 +26,28 @@ const BenefitSection = () => {
         opacity: 1,
         clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
         ease: "circ.out",
+        force3D: true, // Hardware acceleration
       })
       .to(".benefit-section .second-title", {
         duration: 1,
         opacity: 1,
         clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
         ease: "circ.out",
+        force3D: true, // Hardware acceleration
       })
       .to(".benefit-section .third-title", {
         duration: 1,
         opacity: 1,
         clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
         ease: "circ.out",
+        force3D: true, // Hardware acceleration
       })
       .to(".benefit-section .fourth-title", {
         duration: 1,
         opacity: 1,
         clipPath: "polygon(0% 0%, 100% 0, 100% 100%, 0% 100%)",
         ease: "circ.out",
+        force3D: true, // Hardware acceleration
       });
   }, [isMobile, isTablet]);
 

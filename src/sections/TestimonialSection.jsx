@@ -21,22 +21,26 @@ const TestimonialSection = () => {
         marginTop: "-140vh",
       });
 
+      // Optimized title animations with better performance
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".testimonials-section",
           start: "top bottom",
           end: "200% top",
-          scrub: true,
+          scrub: 1.2, // Reduced from true for smoother performance
+          anticipatePin: 1, // Better pinning performance
         },
       });
 
       tl.to(".testimonials-section .first-title", {
         xPercent: 70,
+        ease: "none", // Use none for better scroll performance
       })
         .to(
           ".testimonials-section .sec-title",
           {
             xPercent: 25,
+            ease: "none",
           },
           "<"
         )
@@ -44,17 +48,21 @@ const TestimonialSection = () => {
           ".testimonials-section .third-title",
           {
             xPercent: -50,
+            ease: "none",
           },
           "<"
         );
 
+      // Optimized pinning with better performance
       const pinTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".testimonials-section",
           start: "10% top",
           end: "200% top",
-          scrub: 1.5,
+          scrub: 1.2, // Reduced from 1.5
           pin: true,
+          anticipatePin: 1, // Better pinning performance
+          invalidateOnRefresh: true, // Better refresh handling
         },
       });
 
@@ -62,6 +70,8 @@ const TestimonialSection = () => {
         yPercent: 150,
         stagger: 0.2,
         ease: "power1.inOut",
+        // Add hardware acceleration
+        force3D: true,
       });
     } else {
       // Simple mobile animations
@@ -69,18 +79,20 @@ const TestimonialSection = () => {
         y: 50,
         opacity: 0,
         stagger: 0.1,
+        force3D: true, // Hardware acceleration
         scrollTrigger: {
           trigger: ".testimonials-section",
           start: "top 80%",
           end: "bottom 20%",
-          scrub: 1,
+          scrub: 1.2, // Optimized scrub value
         },
       });
 
-      // Initialize videos for mobile
+      // Optimized video initialization for mobile
       setTimeout(() => {
         vdRef.current.forEach((video, index) => {
           if (video) {
+            video.preload = "metadata"; // Only load metadata on mobile
             video.load();
             // Try to play after a short delay
             setTimeout(() => {
@@ -260,14 +272,15 @@ const TestimonialSection = () => {
                   playsInline
                   muted
                   loop
-                  autoPlay
-                  preload="metadata"
+                  autoPlay={!isMobile}
+                  preload={isMobile ? "metadata" : "auto"}
                   webkit-playsinline="true"
                   x5-playsinline="true"
                   x5-video-player-type="h5"
                   x5-video-player-fullscreen="true"
                   className="size-full object-cover"
                   poster={card.img}
+                  style={{ willChange: "transform" }}
                   onLoadedData={() => handleVideoLoad(index)}
                   onTouchStart={() => handlePlay(index)}
                   onTouchEnd={() => handlePause(index)}

@@ -12,11 +12,12 @@ const FooterSection = () => {
         src="/images/footer-dip.png"
         alt=""
         className="w-full object-cover -translate-y-1"
+        loading="lazy"
       />
 
       <div className="2xl:h-[110dvh] relative md:pt-[20vh] pt-[10vh]">
         <div className="overflow-hidden z-10">
-          <h1 className="general-title text-center text-milk py-5">
+          <h1 className="general-title text-center text-red py-5">
             #ONELASTVIOLATION
           </h1>
         </div>
@@ -25,14 +26,17 @@ const FooterSection = () => {
           <img
             src="/videos/image-removebg-preview.png"
             className="absolute top-0 object-contain right-20"
+            loading="lazy"
           />
         ) : (
           <video
             src="/videos/splash.mp4"
-            autoPlay
+            autoPlay={!isMobile}
             playsInline
             muted
+            preload={isMobile ? "metadata" : "auto"}
             className="absolute top-0 object-contain mix-blend-lighten"
+            style={{ willChange: "transform" }}
           />
         )}
 
@@ -40,13 +44,13 @@ const FooterSection = () => {
           
           
           <div className="social-btn">
-            <img src="./images/whatsapp.svg" alt="" />
+            <img src="./images/whatsapp.svg" alt="" loading="lazy" />
           </div>
           <div className="social-btn">
-            <img src="./images/instagram.svg" alt="" />
+            <img src="./images/instagram.svg" alt="" loading="lazy" />
           </div>
           <div className="social-btn">
-            <img src="./images/threads.svg" alt="" />
+            <img src="./images/threads.svg" alt="" loading="lazy" />
           </div>
         </div>
 
@@ -81,7 +85,7 @@ const FooterSection = () => {
                 placeholder="Enter your email"
                 className="w-full placeholder:font-sans placeholder:text-[#999999]"
               />
-              <img src="/images/arrow.svg" alt="arrow" />
+              <img src="/images/arrow.svg" alt="arrow" loading="lazy" />
             </div>
           </div>
         </div>

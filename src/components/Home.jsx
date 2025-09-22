@@ -22,8 +22,12 @@ const Home = () => {
 
   useGSAP(() => {
     const smoother = ScrollSmoother.create({
-      smooth: 3,
+      smooth: 1.2, // Further reduced for better performance
       effects: true,
+      normalizeScroll: true, // Better cross-browser compatibility
+      ignoreMobileResize: true, // Prevent mobile resize issues
+      smoothTouch: 0.1, // Optimize touch scrolling
+      overscroll: false, // Prevent overscroll issues
     });
     
     // Store the smoother instance globally for navigation access
@@ -56,9 +60,7 @@ const Home = () => {
         const element = document.getElementById(sectionId);
         if (element && window.scrollSmoother) {
           window.scrollSmoother.scrollTo(element, true, "top top");
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 100);
+          // Removed unnecessary ScrollTrigger.refresh() call
         }
       }, 1000); // Give more time for all components to load
 

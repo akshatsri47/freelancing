@@ -14,14 +14,16 @@ const VideoPinSection = () => {
           trigger: ".vd-pin-section",
           start: "-15% top",
           end: "200% top",
-          scrub: 1.5,
+          scrub: 1.2, // Reduced from 1.5 for better performance
           pin: true,
+          anticipatePin: 1, // Better pinning performance
         },
       });
 
       tl.to(".video-box", {
         clipPath: "circle(100% at 50% 50%)",
         ease: "power1.inOut",
+        force3D: true, // Hardware acceleration
       });
     }
   });
@@ -36,7 +38,16 @@ const VideoPinSection = () => {
         }}
         className="size-full video-box"
       >
-        <video src="/videos/IMG_4779.mp4" playsInline muted loop autoPlay   className="size-full -rotate-6"/>
+        <video 
+          src="/videos/IMG_4779.mp4" 
+          playsInline 
+          muted 
+          loop 
+          autoPlay={!isMobile}
+          preload={isMobile ? "metadata" : "auto"}
+          className="size-full -rotate-6"
+          style={{ willChange: "transform" }}
+        />
 
         <div className="abs-center md:scale-100 scale-200">
           <img src="/images/circle-text.svg" alt="" className="spin-circle" />
