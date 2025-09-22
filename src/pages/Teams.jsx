@@ -13,47 +13,13 @@ const Teams = () => {
   const heroRef = useRef(null);
 
   useGSAP(() => {
-    if (!contentRef.current || !titleRef.current || !heroRef.current) return;
-
-    // Initial setup
-    gsap.set([titleRef.current, ".team-card", ".team-section"], { opacity: 0, y: 50 });
-
-    // Hero section animation
-    gsap.fromTo(heroRef.current, 
-      { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
+    // Simple fade-in animation for the entire page
+    const tl = gsap.timeline({ delay: 0.1 });
+    
+    tl.fromTo([heroRef.current, contentRef.current], 
+      { opacity: 0 },
+      { opacity: 1, duration: 0.6, ease: "power2.out" }
     );
-
-    // Main content entrance animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: contentRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    tl.to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out"
-    })
-    .to(".team-section", {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.2,
-      ease: "power2.out"
-    }, "-=0.4")
-    .to(".team-card", {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "-=0.2");
 
     // Cleanup
     return () => {
@@ -129,13 +95,13 @@ const Teams = () => {
       <NavBar showLogo={true} />
       
       {/* Hero Section */}
-      <div ref={heroRef} className="relative bg-gradient-to-br from-dark-brown to-mid-brown min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <div ref={heroRef} className="relative bg-gradient-to-br from-dark-brown to-mid-brown min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 text-center px-5">
-          <h1 className="text-milk text-5xl md:text-7xl font-bold uppercase tracking-tight mb-6 opacity-0" ref={titleRef}>
+        <div className="relative z-10 text-center px-4 sm:px-5">
+          <h1 className="text-milk text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold uppercase tracking-tight mb-4 sm:mb-6">
             Our Team
           </h1>
-          <p className="text-milk/90 font-paragraph text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-milk/90 font-paragraph text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed px-2">
             Meet the passionate individuals who make Cars & Coffee Dehradun possible. 
             Each member brings unique expertise and unwavering dedication to our automotive community.
           </p>
@@ -147,24 +113,24 @@ const Teams = () => {
         <div className="absolute top-1/2 right-20 w-16 h-16 border border-milk/30 rotate-45"></div>
       </div>
 
-      <div ref={contentRef} className="container mx-auto px-5 py-20">
+      <div ref={contentRef} className="container mx-auto px-4 sm:px-5 py-12 sm:py-16 md:py-20">
         {/* Team Grid */}
         <div className="max-w-7xl mx-auto">
-          <div className="team-section text-center mb-16">
-            <h2 className="text-dark-brown text-4xl md:text-5xl font-bold uppercase tracking-tight mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-dark-brown text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-4 sm:mb-6">
               Core Team
             </h2>
-            <p className="text-dark-brown/70 font-paragraph text-xl max-w-3xl mx-auto">
+            <p className="text-dark-brown/70 font-paragraph text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-2">
               Our dedicated team members work tirelessly to create unforgettable automotive experiences 
               and foster a vibrant community of car enthusiasts.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
             {teamMembers.map((member, index) => (
-              <div key={index} className="team-card bg-white/60 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/80 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                <div className="text-center mb-6">
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-light-brown shadow-lg">
+              <div key={index} className="bg-white/60 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 hover:bg-white/80 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div className="text-center mb-4 sm:mb-6">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden border-4 border-light-brown shadow-lg">
                     <img 
                       src={member.image} 
                       alt={member.name}
@@ -175,14 +141,14 @@ const Teams = () => {
                       }}
                     />
                   </div>
-                  <h3 className="text-dark-brown text-2xl font-bold mb-2">{member.name}</h3>
-                  <p className="text-mid-brown text-lg font-semibold uppercase tracking-wide mb-4">{member.role}</p>
-                  <p className="text-dark-brown/80 font-paragraph text-base leading-relaxed">
+                  <h3 className="text-dark-brown text-lg sm:text-xl md:text-2xl font-bold mb-2">{member.name}</h3>
+                  <p className="text-mid-brown text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide mb-3 sm:mb-4">{member.role}</p>
+                  <p className="text-dark-brown/80 font-paragraph text-sm sm:text-base leading-relaxed">
                     {member.description}
                   </p>
                 </div>
                 
-                <div className="border-t border-light-brown/30 pt-6">
+                <div className="border-t border-light-brown/30 pt-4 sm:pt-6">
                   <div className="flex justify-center space-x-4">
                     <a 
                       href={`https://instagram.com/${member.social.instagram.replace('@', '')}`}
@@ -211,24 +177,24 @@ const Teams = () => {
           </div>
 
           {/* Join Our Team Section */}
-          <div className="team-section bg-gradient-to-r from-mid-brown to-light-brown rounded-3xl p-8 md:p-12 text-center">
-            <h3 className="text-milk text-3xl md:text-4xl font-bold uppercase tracking-tight mb-6">
+          <div className="bg-gradient-to-r from-mid-brown to-light-brown rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-center">
+            <h3 className="text-milk text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-tight mb-4 sm:mb-6">
               Join Our Team
             </h3>
-            <p className="text-milk/90 font-paragraph text-xl mb-8 max-w-3xl mx-auto">
+            <p className="text-milk/90 font-paragraph text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto px-2">
               Passionate about cars and community? We're always looking for dedicated individuals 
               to join our growing team and help us create amazing automotive experiences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a 
                 href="mailto:join@carsandcoffeedehradun.com"
-                className="bg-milk text-dark-brown font-bold py-4 px-8 rounded-full hover:bg-milk/90 transition-all duration-300 hover:scale-105"
+                className="bg-milk text-dark-brown font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-full hover:bg-milk/90 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
               >
                 Send Us Your Resume
               </a>
               <a 
                 href="mailto:info@carsandcoffeedehradun.com"
-                className="border-2 border-milk text-milk font-bold py-4 px-8 rounded-full hover:bg-milk hover:text-dark-brown transition-all duration-300 hover:scale-105"
+                className="border-2 border-milk text-milk font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-full hover:bg-milk hover:text-dark-brown transition-all duration-300 hover:scale-105 text-sm sm:text-base"
               >
                 Ask Questions
               </a>
