@@ -118,7 +118,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="bg-main-bg">
+    <section id="home" className="bg-main-bg">
       <div ref={heroContainerRef} className="hero-container relative">
         {/* Video will now play on all devices including mobile */}
         <video

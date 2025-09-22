@@ -9,7 +9,8 @@ import BenefitSection from "../sections/BenefitSection";
 import TestimonialSection from "../sections/TestimonialSection";
 import FooterSection from "../sections/FooterSection";
 import LogoSlider from "./LogoSlider";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -17,12 +18,16 @@ const Home = () => {
   const [showNavBar, setShowNavBar] = useState(false);
   const [showNavBarLogo, setShowNavBarLogo] = useState(false);
   const heroSectionRef = useRef(null);
+  const location = useLocation();
 
   useGSAP(() => {
-    ScrollSmoother.create({
+    const smoother = ScrollSmoother.create({
       smooth: 3,
       effects: true,
     });
+    
+    // Store the smoother instance globally for navigation access
+    window.scrollSmoother = smoother;
 
     // Show NavBar when scrolling past hero section
     ScrollTrigger.create({
@@ -41,6 +46,25 @@ const Home = () => {
       }
     });
   });
+
+  // Handle hash navigation when Home component loads
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.substring(1); // Remove the # symbol
+      // Wait for ScrollSmoother to be ready
+      const timer = setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element && window.scrollSmoother) {
+          window.scrollSmoother.scrollTo(element, true, "top top");
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 100);
+        }
+      }, 1000); // Give more time for all components to load
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash]);
 
   return (
     <main>

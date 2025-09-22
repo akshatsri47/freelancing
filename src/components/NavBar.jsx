@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const NavBar = ({ showLogo = false }) => {
   const navRef = useRef(null);
   const logoRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Animate navbar slide down on mount
@@ -26,26 +29,62 @@ const NavBar = ({ showLogo = false }) => {
     }
   }, [showLogo]);
 
+  // Handle hash navigation when landing on home page with hash
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      const sectionId = location.hash.substring(1); // Remove the # symbol
+      // Wait for the page to load and ScrollSmoother to be ready
+      const timer = setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element && window.scrollSmoother) {
+          window.scrollSmoother.scrollTo(element, true, "top top");
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 100);
+        }
+      }, 500); // Give time for ScrollSmoother to initialize
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, location.hash]);
+
   const scrollToSection = (sectionId) => {
+    // Check if we're on the home page
+    if (location.pathname !== '/') {
+      // If we're not on home page, navigate to home first with section hash
+      navigate(`/#${sectionId}`);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    // If we're already on home page, scroll to section
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Use ScrollSmoother for smooth scrolling
+      if (window.scrollSmoother) {
+        window.scrollSmoother.scrollTo(element, true, "top top");
+      } else {
+        // Fallback to regular smooth scroll
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      
+      // Refresh ScrollTrigger after a short delay to ensure animations trigger
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
     }
     // Close mobile menu after clicking
     setIsMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {
-    console.log('Toggle clicked, current state:', isMobileMenuOpen);
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Simple mobile menu visibility (no GSAP for now to debug)
+  // Simple mobile menu visibility
   useEffect(() => {
-    console.log('Mobile menu state changed:', isMobileMenuOpen);
     if (mobileMenuRef.current) {
       if (isMobileMenuOpen) {
-        console.log('Opening mobile menu');
         mobileMenuRef.current.style.display = 'block';
         // Small delay to ensure display is set before animating
         setTimeout(() => {
@@ -53,15 +92,12 @@ const NavBar = ({ showLogo = false }) => {
           mobileMenuRef.current.style.transform = 'translateY(0) scale(1)';
         }, 10);
       } else {
-        console.log('Closing mobile menu');
         mobileMenuRef.current.style.opacity = '0';
         mobileMenuRef.current.style.transform = 'translateY(-20px) scale(0.95)';
         setTimeout(() => {
           mobileMenuRef.current.style.display = 'none';
         }, 200);
       }
-    } else {
-      console.log('Mobile menu ref not found');
     }
   }, [isMobileMenuOpen]);
 
