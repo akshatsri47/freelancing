@@ -13,7 +13,7 @@ const HeroSection = () => {
   const heroContainerRef = useRef(null);
 
   const openTallyForm = () => {
-    window.open('https://tally.so/r/3189Wg', '_blank');
+    window.open('https://tally.so/r/npaOWJ', '_blank');
   };
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
