@@ -89,7 +89,7 @@ const MessageSection = () => {
             </div>
 
             <h1 className="second-message">
-            Welcome to Dehradun Cars & Coffee! 🚗☕
+            Welcome to Dehradun Cars & Coffee! 
 
             </h1>
           </div>
