@@ -16,7 +16,7 @@ const FooterSection = () => {
       <div className="2xl:h-[110dvh] relative md:pt-[20vh] pt-[10vh]">
         <div className="overflow-hidden z-10">
           <h1 className="general-title text-center text-white py-5 whitespace-nowrap">
-          #One Last <span className="text-red-500">Violation</span>
+          #One Last <span className="text-accent-red font-bold drop-shadow-lg">Violation</span>
           </h1>
         </div>
 
@@ -36,31 +36,30 @@ const FooterSection = () => {
         )}
 
         <div className="flex-center gap-5 relative z-10 md:mt-20 mt-5">
-          <div className="social-btn">
-            <img src="./images/threads.svg" alt="" />
+          <div className="social-btn group">
+            <img src="./images/threads.svg" alt="Threads" className="group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <div className="social-btn">
-            <img src="./images/insta.svg" alt="" />
+          <div className="social-btn group">
+            <img src="./images/insta.svg" alt="Instagram" className="group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <div className="social-btn">
-            <img src="./images/whatsapp.svg" alt="" />
+          <div className="social-btn group">
+            <img src="./images/whatsapp.svg" alt="WhatsApp" className="group-hover:scale-110 transition-transform duration-300" />
           </div>
         </div>
 
         <div className="mt-40 md:px-10 px-5 flex gap-10 md:flex-row flex-col justify-between text-milk font-paragraph md:text-lg font-medium">
           <div className="flex items-center md:gap-16 gap-5">
             <div className="hidden md:block">
-              <p>CARSNCOFFEE</p>
+              <p className="text-accent-red font-bold text-xl tracking-wider">CARSNCOFFEE</p>
             </div>
-            <div className="hidden md:block">
-              <p>carsncoffeedoon</p>
-             
-              <p>car meetup</p>
+            <div className="hidden md:block space-y-1">
+              <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">carsncoffeedoon</p>
+              <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">car meetup</p>
             </div>
-            <div className="hidden md:block">
-              <p>Company</p>
-              <p>Contacts</p>
-              <p>Blog</p>
+            <div className="hidden md:block space-y-1">
+              <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">Company</p>
+              <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">Contacts</p>
+              <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">Blog</p>
             </div>
           </div>
 
@@ -68,10 +67,10 @@ const FooterSection = () => {
 
         <div className="copyright-box">
           {/* The final row with copyright and legal links. */} 
-          <p>Copyright © 2025 carsncoffee - All Rights Reserved</p>
+          <p className="text-milk/80">Copyright © 2025 carsncoffee - All Rights Reserved</p>
           <div className="flex items-center gap-7">
-            <p>Privacy Policy</p>
-            <p>Terms of Sеrvice</p>
+            <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">Privacy Policy</p>
+            <p className="hover:text-accent-red transition-colors duration-300 cursor-pointer">Terms of Service</p>
           </div>
         </div>
       </div>
