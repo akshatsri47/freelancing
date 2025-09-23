@@ -17,7 +17,7 @@ const MessageSection = () => {
     });
 
     gsap.to(firstMsgSplit.words, {
-      color: "#faeade",
+      color: "#f8fafc",
       ease: "power1.in",
       stagger: 1,
       force3D: true, // Hardware acceleration
@@ -29,7 +29,7 @@ const MessageSection = () => {
       },
     });
     gsap.to(secMsgSplit.words, {
-      color: "#faeade",
+      color: "#f8fafc",
       ease: "power1.in",
       stagger: 1,
       force3D: true, // Hardware acceleration
@@ -83,8 +83,8 @@ const MessageSection = () => {
               }}
               className="msg-text-scroll"
             >
-              <div className="bg-light-brown md:pb-5 pb-3 px-5">
-                <h2 className="text-red-brown">Intro</h2>
+              <div className="bg-mid-gray md:pb-5 pb-3 px-5">
+                <h2 className="text-accent-red">Intro</h2>
               </div>
             </div>
 

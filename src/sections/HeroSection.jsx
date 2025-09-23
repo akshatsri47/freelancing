@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
 // Register ScrollTrigger plugin
@@ -12,36 +12,13 @@ const HeroSection = () => {
   const subtitleRef = useRef(null);
   const heroContainerRef = useRef(null);
   const videoRef = useRef(null);
-  const [showLumaEmbed, setShowLumaEmbed] = useState(false);
-
-  const toggleLumaEmbed = () => {
-    setShowLumaEmbed(!showLumaEmbed);
+  const openLumaRegistration = () => {
+    window.open('https://luma.com/embed/event/evt-KeaQjKjHBExybe2/simple', '_blank');
   };
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
-  // Handle escape key to close embed and body scroll
-  useEffect(() => {
-    const handleEscapeKey = (event) => {
-      if (event.key === 'Escape' && showLumaEmbed) {
-        setShowLumaEmbed(false);
-      }
-    };
-
-    if (showLumaEmbed) {
-      document.addEventListener('keydown', handleEscapeKey);
-      // Prevent body scroll when in fullscreen
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-      document.body.style.overflow = 'unset';
-    };
-  }, [showLumaEmbed]);
 
   useGSAP(() => {
     // Initial hero animations (keep your existing timeline)
@@ -206,35 +183,9 @@ const HeroSection = () => {
             fuel your passion with every rev.
           </h2>
 
-          {!showLumaEmbed ? (
-            <div className="hero-button" onClick={toggleLumaEmbed}>
-              <p>Register Now</p>
-            </div>
-          ) : (
-            <div className="fixed inset-0 z-50 bg-white">
-              {/* Close button */}
-              <button
-                onClick={toggleLumaEmbed}
-                className="absolute top-4 left-4 z-10 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-gray-700 transition-colors"
-                aria-label="Close registration form"
-              >
-                ← Back
-              </button>
-              
-              {/* Luma Embed - Fullscreen */}
-              <iframe
-                src="https://luma.com/embed/event/evt-KeaQjKjHBExybe2/simple"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allow="fullscreen; payment"
-                aria-hidden="false"
-                tabIndex="0"
-                title="Event Registration"
-                className="w-full h-full"
-              />
-            </div>
-          )}
+          <div className="hero-button" onClick={openLumaRegistration}>
+            <p>Register Now</p>
+          </div>
         </div>
       </div>
     </section>

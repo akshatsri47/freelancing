@@ -7,17 +7,17 @@
 }
 
 @theme {
-  --color-black: #222123;
-  --color-main-bg: #232224;
+  --color-black: #0a0a0a;
+  --color-main-bg: #1a1a1a;
   --color-white: #ffffff;
-  --color-dark-brown: #523122;
-  --color-mid-brown: #a26833;
-  --color-light-brown: #e3a458;
-  --color-red-brown: #7f3b2d;
-  --color-yellow-brown: #a26833;
-  --color-milk-yellow: #e3d3bc;
-  --color-red: #a02128;
-  --color-milk: #faeade;
+  --color-dark-gray: #2d2d2d;
+  --color-mid-gray: #4a4a4a;
+  --color-light-gray: #6b6b6b;
+  --color-accent-red: #dc2626;
+  --color-accent-blue: #2563eb;
+  --color-accent-silver: #c0c0c0;
+  --color-red: #dc2626;
+  --color-milk: #f8fafc;
   --font-sans: "Antonio", sans-serif;
   --font-paragraph: "ProximaNova, sans-serif";
 }
@@ -27,8 +27,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #faeade;
-  color: #523122;
+  background-color: #f8fafc;
+  color: #2d2d2d;
   font-family: "Antonio", sans-serif;
   overflow-x: hidden;
   /* Removed scroll-behavior: smooth to prevent conflict with GSAP ScrollSmoother */
@@ -73,43 +73,43 @@ body::-webkit-scrollbar {
       @apply relative z-10 w-full h-full flex flex-col 2xl:justify-center items-center translate-y-10 2xl:pt-0 md:pt-32 pt-24 lg:pt-20 xl:pt-24;
  
       .hero-title {
-        @apply text-dark-brown 2xl:text-[8.5rem] md:text-[6.5rem] text-[3.3rem] font-bold uppercase leading-[9vw] tracking-[-.35vw] 2xl:mb-0 mb-5;
+        @apply text-dark-gray 2xl:text-[8.5rem] md:text-[6.5rem] text-[3.3rem] font-bold uppercase leading-[9vw] tracking-[-.35vw] 2xl:mb-0 mb-5;
       }
       .hero-text-scroll {
         @apply rotate-[-3deg] 2xl:mb-4 mb-8 border-[.5vw] border-milk;
 
         .hero-subtitle {
-          @apply bg-mid-brown;
+          @apply bg-mid-gray;
         }
 
         h1 {
-          @apply uppercase 2xl:text-[8.5rem] md:text-[6.5rem] text-[3.3rem] font-bold text-[#fce1cd] leading-[9vw] tracking-[-.35vw] 2xl:px-[1.2vw] px-3 2xl:pb-[1vw] pb-5 2xl:py-0 py-3;
+          @apply uppercase 2xl:text-[8.5rem] md:text-[6.5rem] text-[3.3rem] font-bold text-[#f8fafc] leading-[9vw] tracking-[-.35vw] 2xl:px-[1.2vw] px-3 2xl:pb-[1vw] pb-5 2xl:py-0 py-3;
         }
       }
 
       h2 {
-        @apply font-paragraph text-dark-brown text-center md:max-w-lg max-w-sm px-5 md:text-lg leading-[115%] mt-3;
+        @apply font-paragraph text-dark-gray text-center md:max-w-lg max-w-sm px-5 md:text-lg leading-[115%] mt-3;
       }
 
       .hero-button {
-        @apply md:mt-16 mt-8 lg:mt-12 text-dark-brown bg-light-brown uppercase font-bold text-xl rounded-full md:p-7 p-5 md:px-20 px-14 sm:px-16;
+        @apply md:mt-16 mt-8 lg:mt-12 text-white bg-accent-red uppercase font-bold text-xl rounded-full md:p-7 p-5 md:px-20 px-14 sm:px-16;
 
       }
     }
   }
 
   .message-content {
-    @apply bg-[#7f3b2d] text-milk min-h-dvh overflow-hidden flex justify-center items-center relative z-20;
+    @apply bg-dark-gray text-milk min-h-dvh overflow-hidden flex justify-center items-center relative z-20;
 
     .msg-wrapper {
       @apply 2xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw] flex flex-col justify-center items-center md:gap-24 gap-14;
 
       h1:first-of-type {
-        @apply 2xl:max-w-4xl md:max-w-2xl max-w-xs text-center  text-[#faeade10];
+        @apply 2xl:max-w-4xl md:max-w-2xl max-w-xs text-center  text-[#f8fafc10];
       }
 
       h1:last-of-type {
-        @apply 2xl:max-w-7xl md:max-w-4xl max-w-xs text-center  text-[#faeade10];
+        @apply 2xl:max-w-7xl md:max-w-4xl max-w-xs text-center  text-[#f8fafc10];
       }
     }
 
@@ -123,7 +123,7 @@ body::-webkit-scrollbar {
     }
 
     .msg-text-scroll {
-      @apply rotate-[3deg] 2xl:translate-y-5 -translate-y-5 absolute z-10 border-[.5vw] border-[#7f3b2d];
+      @apply rotate-[3deg] 2xl:translate-y-5 -translate-y-5 absolute z-10 border-[.5vw] border-dark-gray;
     }
   }
 
@@ -135,7 +135,7 @@ body::-webkit-scrollbar {
     }
 
     .first-text-split h1 {
-      @apply md:text-center text-dark-brown;
+      @apply md:text-center text-dark-gray;
     }
 
     .second-text-split h1 {
@@ -171,32 +171,32 @@ body::-webkit-scrollbar {
     }
 
     .nutrition-title {
-      @apply 2xl:max-w-4xl xl:max-w-2xl md:py-0 py-3 md:pb-5 pb-0 lg:pb-0 md:text-center text-[#513022];
+      @apply 2xl:max-w-4xl xl:max-w-2xl md:py-0 py-3 md:pb-5 pb-0 lg:pb-0 md:text-center text-dark-gray;
     }
 
     .nutrition-text-scroll {
-      @apply rotate-[-3deg] border-[.5vw] border-[#e3d3bc] text-nowrap opacity-0 md:-mt-32 -mt-24;
+      @apply rotate-[-3deg] border-[.5vw] border-accent-silver text-nowrap opacity-0 md:-mt-32 -mt-24;
     }
 
     .nutrition-box {
       @apply absolute md:bottom-16 bottom-5 w-full md:px-0 px-5;
 
       .list-wrapper {
-        @apply bg-[#fdebd2] rounded-full border-[.5vw] border-[#e8ddca] mx-auto max-w-7xl md:py-8 py-5 md:px-0 px-5 flex justify-between items-center;
+        @apply bg-accent-silver rounded-full border-[.5vw] border-mid-gray mx-auto max-w-7xl md:py-8 py-5 md:px-0 px-5 flex justify-between items-center;
 
         p {
-          @apply text-[#865720];
+          @apply text-dark-gray;
         }
       }
 
       .spacer-border {
-        @apply absolute right-0 top-1/2 transform -translate-y-1/2 md:h-24 h-16 w-px bg-[#C89C6E];
+        @apply absolute right-0 top-1/2 transform -translate-y-1/2 md:h-24 h-16 w-px bg-mid-gray;
       }
     }
   }
 
   .benefit-section {
-    @apply min-h-dvh bg-[#222123] overflow-hidden relative;
+    @apply min-h-dvh bg-black overflow-hidden relative;
 
     p {
       @apply text-milk font-paragraph text-center text-lg;
@@ -390,7 +390,7 @@ body::-webkit-scrollbar {
   }
 
   .footer-section {
-    @apply 2xl:min-h-dvh overflow-hidden relative bg-[#222123];
+    @apply 2xl:min-h-dvh overflow-hidden relative bg-black;
 
     .social-btn {
       @apply border border-[#faeade33] w-12 h-12 md:w-16 md:h-16 flex justify-center items-center rounded-full hover:bg-[#ffffff1a] transition-all duration-300 cursor-pointer hover:scale-110 hover:border-milk/50;
@@ -424,8 +424,8 @@ body::-webkit-scrollbar {
 }
 
 .nutrition-section {
-  background-color: #faeade00;
-  background-image: radial-gradient(circle, #f3ece2, #dcccb0);
+  background-color: #f8fafc00;
+  background-image: radial-gradient(circle, #f1f5f9, #e2e8f0);
 }
 
 .spin-circle {
