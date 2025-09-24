@@ -36,9 +36,14 @@ const FooterSection = () => {
         )} */}
 
         <div className="flex-center gap-5 relative z-10 md:mt-20 mt-5">
-          <div className="social-btn group">
+          <a 
+            href="https://www.threads.com/@carsncoffee.doon?igshid=NTc4MTIwNjQ2YQ==" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="social-btn group"
+          >
             <img src="./images/threads.svg" alt="Threads" className="group-hover:scale-110 transition-transform duration-300" />
-          </div>
+          </a>
           <a 
             href="https://www.instagram.com/carsncoffee.doon/" 
             target="_blank" 
