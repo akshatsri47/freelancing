@@ -13,7 +13,7 @@ const HeroSection = () => {
   const heroContainerRef = useRef(null);
   const videoRef = useRef(null);
   const openLumaRegistration = () => {
-    window.open('https://luma.com/50momi62', '_blank');
+    window.open('https://luma.com/x0ikvz3i', '_blank');
   };
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

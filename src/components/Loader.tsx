@@ -1,7 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-const Loader = () => {
+interface LoaderProps {
+  text?: string;
+  highlightWord?: string;
+}
+
+const Loader = ({ 
+  text = "#One Last Violation", 
+  highlightWord = "Violation" 
+}: LoaderProps) => {
   const overlayRef = useRef(null);
   const textRef = useRef(null);
 
@@ -25,13 +33,27 @@ const Loader = () => {
       });
   }, []);
 
+  const renderText = () => {
+    if (text.includes(highlightWord)) {
+      const parts = text.split(highlightWord);
+      return (
+        <>
+          {parts[0]}
+          <span className="text-red-500">{highlightWord}</span>
+          {parts[1]}
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
     <div
       ref={overlayRef}
       className="fixed inset-0 z-[1000] flex items-center justify-center bg-black"
     >
       <h1 ref={textRef} className="text-white text-4xl md:text-6xl font-bold whitespace-nowrap">
-        #One Last <span className="text-red-500">Violation</span>
+        {renderText()}
       </h1>
     </div>
   );

@@ -116,7 +116,7 @@ const NavBar = ({ showLogo = false }) => {
   }, [isMobileMenuOpen]);
 
   return (
-<nav ref={navRef} className="fixed top-0 left-0 right-0 z-30 md:px-9 px-3 flex items-center justify-between bg-white/80 backdrop-blur-md border-b border-white/20">
+    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-30 md:px-12 px-4 py-4 flex items-center justify-between bg-white/90 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
 
       {/* Logo on the left */}
       <div className="flex-shrink-0">
@@ -124,60 +124,60 @@ const NavBar = ({ showLogo = false }) => {
           ref={logoRef}
           src="/photos/clip-logo.svg" 
           alt="nav-logo" 
-          className="md:w-48 w-40"
+          className="md:w-52 w-44 h-auto"
           style={{ opacity: showLogo ? 1 : 0 }}
         />
       </div>
 
       {/* Center navigation - All nav items */}
-      <div className="hidden md:flex flex-1 justify-center items-start space-x-8 -mt-2">
+      <div className="hidden md:flex flex-1 justify-center items-center space-x-2">
         <Link
           to="/"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Home
         </Link>
         <Link
           to="/teams"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Teams
         </Link>
         <Link
           to="/privacy-policy"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Privacy
         </Link>
         <Link
           to="/terms-and-conditions"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Terms
         </Link>
         <Link
           to="/accessibility"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Accessibility
         </Link>
-        <Link
+        {/* <Link
           to="/refund-policy"
-          className="text-gray-800 text-lg font-semibold px-3 py-2 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+          className="text-dark-gray text-xl font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
         >
           Refunds
-        </Link>
+        </Link> */}
       </div>
 
       {/* Mobile menu button */}
       <div className="md:hidden ml-auto">
         <button 
           onClick={toggleMobileMenu}
-          className="text-gray-800 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="text-dark-gray p-3 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105"
         >
           {isMobileMenuOpen ? (
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -185,13 +185,13 @@ const NavBar = ({ showLogo = false }) => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
           ) : (
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -199,7 +199,7 @@ const NavBar = ({ showLogo = false }) => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
@@ -210,53 +210,53 @@ const NavBar = ({ showLogo = false }) => {
       {/* Mobile dropdown menu */}
       <div 
         ref={mobileMenuRef}
-        className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-lg z-50 transition-all duration-300 ease-out"
+        className="md:hidden absolute top-full left-4 right-4 mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 rounded-2xl shadow-2xl z-50 transition-all duration-300 ease-out"
         style={{ 
           display: 'none',
           opacity: '0',
           transform: 'translateY(-20px) scale(0.95)'
         }}
       >
-          <div className="px-4 py-6 space-y-4">
+          <div className="px-6 py-8 space-y-3">
             <Link
               to="/"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Home
             </Link>
             <Link
               to="/teams"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Teams
             </Link>
             <Link
               to="/privacy-policy"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Privacy Policy
             </Link>
             <Link
               to="/terms-and-conditions"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Terms & Conditions
             </Link>
             <Link
               to="/accessibility"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Accessibility
             </Link>
             <Link
               to="/refund-policy"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left text-gray-800 text-lg font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:bg-gray-100 hover:text-gray-900"
+              className="block w-full text-left text-dark-gray text-xl font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:bg-accent-red hover:text-white hover:scale-105 hover:shadow-lg"
             >
               Refund Policy
             </Link>
