@@ -174,7 +174,7 @@ const HeroSection = () => {
             className="hero-text-scroll"
           >
             <div className="hero-subtitle">
-              <h1> Dehradun</h1>
+              <h1> Live Now</h1>
             </div>
           </div>
 

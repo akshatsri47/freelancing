@@ -15,20 +15,20 @@ const LogoSlider = () => {
 
   // Logo data - using available assets and some placeholder brands
   const logos = [
-    { src: "/logos/Img1.jpg", alt: "Brand 1" },
-    { src: "/logos/Img2.jpg", alt: "Brand 2" },
-    { src: "/logos/Img3.PNG", alt: "Brand 3" },
-    { src: "/logos/Img4.JPG", alt: "Brand 4" },
+    { src: "/logos/logo1.svg", alt: "Brand 1" },
+    { src: "/logos/logo2.svg", alt: "Brand 2" },
+    { src: "/logos/logo3.svg", alt: "Brand 3" },
+    { src: "/logos/logo4.svg", alt: "Brand 4" },
     // { src: "/neecnclogo.svg", alt: "Brand 4" },
-    { src: "/logos/Img5.jpg", alt: "Brand 5" },
-    { src: "/logos/Img6.jpg", alt: "Brand 6" },
+    { src: "/logos/logo5.svg", alt: "Brand 5" },
+    { src: "/logos/logo6.svg", alt: "Brand 6" },
     // Duplicate logos for seamless infinite scroll
-    { src: "/logos/Img1.jpg", alt: "Brand 1" },
-    { src: "/logos/Img2.jpg", alt: "Brand 2" },
-    { src: "/logos/Img3.PNG", alt: "Brand 3" },
-    { src: "/logos/Img4.JPG", alt: "Brand 4" },
-    { src: "/logos/Img5.jpg", alt: "Brand 5" },
-    { src: "/logos/Img6.jpg", alt: "Brand 6" },
+    { src: "/logos/logo1.svg", alt: "Brand 1" },
+    { src: "/logos/logo2.svg", alt: "Brand 2" },
+    { src: "/logos/logo3.svg", alt: "Brand 3" },
+    { src: "/logos/logo4.svg", alt: "Brand 4" },
+    { src: "/logos/logo5.svg", alt: "Brand 5" },
+    { src: "/logos/logo6.svg", alt: "Brand 6" },
   ];
 
   useGSAP(() => {
