@@ -92,7 +92,7 @@ body::-webkit-scrollbar {
       }
 
       .hero-button {
-        @apply md:mt-16 mt-8 lg:mt-12 text-white bg-accent-red uppercase font-bold text-xl rounded-full md:p-7 p-5 md:px-20 px-14 sm:px-16;
+        @apply md:mt-16 mt-12 lg:mt-12 text-white bg-accent-red uppercase font-bold text-xl rounded-full md:p-7 p-5 md:px-20 px-14 sm:px-16 mb-8 md:mb-0;
 
       }
     }
