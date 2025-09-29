@@ -39,7 +39,7 @@ const Teams = () => {
       }
     },
     {
-      name: "Prince Kataria",
+      name: "Prince Chaudhary",
      
       image: "/photos/team2.jpg", 
       description: "Passionate about cars since childhood, he treats every build like a toy turned masterpiece, from humble Polos to iconic R8s",
@@ -70,6 +70,16 @@ const Teams = () => {
     },
     {
       name: "Sifat Wason",
+ 
+      image: "/photos/team5.jpg",
+      description: "With expertise in marketing and PR, she shapes the brand’s presence, driving meaningful connections and impactful community engagement.",
+      social: {
+        instagram: "@lisa_creative",
+        
+      }
+    },
+    {
+      name: "Shaurya Puri",
  
       image: "/photos/team5.jpg",
       description: "With expertise in marketing and PR, she shapes the brand’s presence, driving meaningful connections and impactful community engagement.",
